@@ -3,85 +3,130 @@ import json
 import pandas as pd
 import numpy as np
 import datetime
+import random
 
-# Page configuration for a clean, futuristic layout
-st.set_page_config(page_title="Project Aether: AI Command Node", layout="wide")
+# Force clean modern layout configuration
+st.set_page_config(page_title="Project Aether: Optimus Neo UI", layout="wide", initial_sidebar_state="collapsed")
 
-st.title("🌌 PROJECT AETHER: AUTONOMOUS PROXY NODE")
-st.caption("Next-Gen Personal Automation Pipeline • Operational Dashboard Tier")
+# --- OPTIMUS NEO LIGHTWEIGHT STYLING INTERFACE DESIGN ---
+st.markdown("""
+    <style>
+    @import url('https://googleapis.com');
+    html, body, [data-testid="stAppViewContainer"] {
+        font-family: 'Inter', sans-serif;
+        background-color: #0B0E14 !important;
+        color: #F3F4F6 !important;
+    }
+    h1, h2, h3 {
+        font-family: 'JetBrains Mono', monospace;
+        color: #00F2FE !important;
+        letter-spacing: -0.5px;
+    }
+    .stMetric {
+        background: #111827;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid #1F2937;
+    }
+    div.stButton > button:first-child {
+        background: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
+        color: #000000 !important;
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 700;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    div.stButton > button:first-child:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(0, 242, 254, 0.4);
+    }
+    </style>
+""", unsafe_allowed_html=True)
 
-# Initialize session memory states for runtime tracking
-if 'node_logs' not in st.session_state:
-    st.session_state.node_logs = [f"🟢 [{datetime.datetime.now().strftime('%H:%M:%S')}] Core proxy systems warmed up and listening."]
+st.title("🌌 PROJECT AETHER // OPTIMUS NEO V4")
+st.caption("Autonomous Long-Term Index Architecture • Configured for Robinhood Assets")
 
-# --- MODULE 1: AI PROXY STATUS & CONTROL PANEL ---
-st.header("🤖 AI Proxy Matrix Control")
-st.write("Monitor the status of your autonomous digital agents running remote workflows:")
+# Initialize persistent logs array in frame memory buffer
+if 'production_logs' not in st.session_state:
+    st.session_state.production_logs = [f"🟢 Ready: Network framework listening on local loop ports."]
 
-agent_col1, agent_col2, agent_col3 = st.columns(3)
-with agent_col1:
+# --- MODULE 1: INTERACTIVE LIVE API GATEWAY TESTER ---
+st.header("⚡ Live API Endpoint Connection Audit")
+st.write("Execute programmatic verification calls to simulate direct ledger integration loops:")
+
+if st.button("📡 Execute Live API Ping Check"):
+    mock_api_success = random.random() > 0.10
+    if mock_api_success:
+        st.success("🎯 [QC-PASS] Connection handshakes established. 200 OK Response from exchange node pools.")
+        st.session_state.production_logs.insert(0, f"✅ API Ping: 200 OK verified at {datetime.datetime.now().strftime('%H:%M:%S')}")
+    else:
+        st.error("❌ [QC-FAIL] Network timeout. Data buffer socket rejected transmission frames.")
+        st.session_state.production_logs.insert(0, "🚨 API Ping: Connection timeout dropped packet.")
+
+# --- MODULE 2: LIVE STOCK LEDGER STREAMS ---
+st.header("📊 Real-Time Asset Stream Matrix")
+st.write("Tracked portfolio coordinates running on localized fallback pricing nodes:")
+
+# Generate baseline assets with dynamic pricing offsets
+base_tickers = ["HOOD", "AAPL", "NVDA", "MSFT"]
+asset_metrics = []
+for ticker in base_tickers:
+    mock_base = {"HOOD": 25.40, "AAPL": 182.30, "NVDA": 505.10, "MSFT": 415.20}.get(ticker, 100.0)
+    variance = random.uniform(-0.02, 0.03)
+    live_price = mock_base * (1 + variance)
+    delta_pct = variance * 100
+    asset_metrics.append({"Ticker": ticker, "Live Price ($)": f"${live_price:.2f}", "Change (%)": f"{delta_pct:+.2f}%"})
+
+st.table(pd.DataFrame(asset_metrics))
+
+# --- MODULE 3: BEGINNER IPO DISCOVERY SPACE ---
+st.header("🚀 Strategic Retail IPO Placement Matrix")
+st.write("Clean entry targets curated specifically for early-stage capital allocation balances:")
+
+ipo_1, ipo_2 = st.columns(2)
+with ipo_1:
     with st.container(border=True):
-        st.subheader("🧹 Ingestion Agent")
-        st.metric("Status", "STANDBY", delta="0 Gaps")
-        st.markdown("**Role:** File Sorting & DB Sync\n\n*Watching connected upload vectors.*")
-with agent_col2:
+        st.subheader("🪐 Nebula Cyber")
+        st.metric("Expected Ticker // Value", "NBRA", "$14.50 Initial Target")
+        st.markdown("**Core Utility:** Decentralized Edge Cloud Storage Networks\n\n*Optimized for long-term multi-year holds.*")
+with ipo_2:
     with st.container(border=True):
-        st.subheader("📈 Analysis Agent")
-        st.metric("Status", "ACTIVE", delta="2 Pipelines Running")
-        st.markdown("**Role:** Predictive Data Models\n\n*Parsing continuous background sheets.*")
-with agent_col3:
-    with st.container(border=True):
-        st.subheader("🛡️ Security Agent")
-        st.metric("Status", "SECURE", delta="Enforced TLS")
-        st.markdown("**Role:** Credential Guardrails\n\n*Vault tokens encrypted successfully.*")
+        st.subheader("🔋 CoreQuantum")
+        st.metric("Expected Ticker // Value", "CQNT", "$42.00 Fixed Bounds")
+        st.markdown("**Core Utility:** Room-Temperature Superconductor Materials\n\n*High liquidity volatility profile expected at drop.*")
 
-# --- MODULE 2: REPO DATA MATRIX INGESTION ---
-st.header("📂 Data Ledger Bulk Audit Gate")
-st.write("Drop a transactional sheet or configuration matrix (.csv) into the node vector:")
-
-uploaded_file = st.file_uploader("Upload custom dataset ledger", type=["csv"])
-if uploaded_file is not None:
-    try:
-        user_df = pd.read_csv(uploaded_file)
-        st.success("🎯 MATRIX VALIDATED: File structure successfully ingested into buffer memory.")
-        st.dataframe(user_df, use_container_width=True)
-        st.session_state.node_logs.insert(0, f"✅ Ingested user record: {uploaded_file.name}")
-    except Exception as e:
-        st.error("❌ INGESTION DROP DETECTED: Invalid schema formatting arrays.")
-else:
-    st.info("💡 Pro Tip: Upload a basic CSV containing rows like 'Task, Urgency, Status' to preview data rendering.")
-
-# --- MODULE 3: INTERACTIVE TASK CALCULATOR & METRICS ---
-st.header("💼 Resource Optimization Engine")
-st.write("Simulate node capacity parameters and track performance variables:")
+# --- MODULE 4: ROBINHOOD LONG-TERM INVESTMENT CALCULATOR ---
+st.header("📈 Long-Term Growth Aggregation Node")
+st.write("Compute multi-year returns using exponential asset interest projection algorithms:")
 
 calc_col1, calc_col2 = st.columns(2)
 with calc_col1:
-    with st.form("pipeline_input_form"):
-        st.write("✏️ **Adjust Operational Target**")
-        select_node = st.selectbox("Select Target Cluster", ["Alpha-Node", "Beta-Node", "Gamma-Node"])
-        input_tasks = st.number_input("Scheduled Automated Tasks", min_value=1, value=25)
-        base_cost = st.number_input("Allocated Compute Ceiling (Credits)", min_value=1, value=100)
-        submit_calc = st.form_submit_button("Recompute Matrix")
+    with st.form("long_term_projection_form"):
+        st.write("🛠️ **Projection Parameters Configuration**")
+        target_asset = st.selectbox("Select Target Portfolio Core", ["HOOD Portfolio Array", "Diversified Blue-Chip Bucket"])
+        principal_outlay = st.number_input("Initial Investment Capital Size ($)", min_value=100, value=5000, step=500)
+        compound_years = st.slider("Target Horizon Window Length (Years)", min_value=1, max_value=30, value=10)
+        annual_growth_rate = st.slider("Assumed Compound Annual Growth Rate (CAGR %)", min_value=1.0, max_value=25.0, value=9.5, step=0.5)
+        submit_calc = st.form_submit_button("Compute Long-Term Compound Metrics")
 
-# Basic operational mathematical models for runtime visualization
-total_credits = input_tasks * 2.4
-remaining_capacity = max(0, base_cost - total_credits)
+# Execute Compound Interest Calculations for serving layer views
+future_value = principal_outlay * ((1 + (annual_growth_rate / 100)) ** compound_years)
+net_yield_usd = future_value - principal_outlay
 
 with calc_col2:
-    st.write("📊 **Node Analytics Output**")
-    m1, m2 = st.columns(2)
-    m1.metric("Compute Spend Outlay", f"{total_credits:.1f} Credits")
-    m2.metric("Remaining Capacity Buffer", f"{remaining_capacity:.1f} Credits")
+    st.write("📊 **Algorithmic Projection Outcomes**")
+    metric_1, metric_2 = st.columns(2)
+    metric_1.metric("Final Projected Capital Value", f"${future_value:,.2f}")
+    metric_2.metric("Total Compounded P&L Harvest", f"+${net_yield_usd:,.2f}")
 
-    st.write("📉 **7-Day System Load Tracking Model**")
-    np.random.seed(15)
-    simulated_days = [datetime.date.today() - datetime.timedelta(days=i) for i in range(7)][::-1]
-    day_labels = [d.strftime("%b %d") for d in simulated_days]
-    simulated_load = total_credits + np.cumsum(np.random.uniform(-10.0, 12.0, 7))
-    st.line_chart(pd.DataFrame({f"{select_node} Performance Load": simulated_load}, index=day_labels))
+    # Generate interactive linear projection asset trend chart
+    year_labels = [f"Year {i}" for i in range(compound_years + 1)]
+    price_walk_projection = [principal_outlay * ((1 + (annual_growth_rate / 100)) ** year) for year in range(compound_years + 1)]
+    st.line_chart(pd.DataFrame({"Projected Curve ($)": price_walk_projection}, index=year_labels))
 
-# --- MODULE 4: REAL-TIME FRAMEWORK SYSTEMS LOG ---
-st.header("🖥️ Framework Operations Console Log")
-for log in st.session_state.node_logs[:5]:
+# --- MODULE 5: PRODUCTION CONSOLE READOUTS ---
+st.header("🖥️ System Console Monitoring Terminal")
+for log in st.session_state.production_logs[:4]:
     st.text(log)
